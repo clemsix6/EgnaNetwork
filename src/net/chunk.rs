@@ -56,6 +56,7 @@ impl Chunk {
         })
     }
 
+    #[allow(dead_code)]
     pub const fn serialized_size(&self) -> usize {
         16 + self.data.len()
     }

@@ -44,7 +44,7 @@ impl Listener {
     pub async fn start(self) -> JoinHandle<()> {
         tokio::spawn(async move {
             if let Err(e) = self.internal_start().await {
-                eprintln!("Listener error: {}", e);
+                eprintln!("Listener error: {e}");
             }
         })
     }
@@ -83,10 +83,8 @@ impl Listener {
 
     fn assemble_complete_message(entry: &mut ReceivingMessage) -> Vec<u8> {
         let mut full = Vec::new();
-        for part in entry.parts.drain(..) {
-            if let Some(part_data) = part {
-                full.extend_from_slice(&part_data);
-            }
+        for part_data in entry.parts.drain(..).flatten() {
+            full.extend_from_slice(&part_data);
         }
         full
     }
@@ -129,7 +127,7 @@ impl Listener {
 
                 let err = self.handle_complete_message(message.to_owned(), src).await;
                 if let Some(e) = err {
-                    eprintln!("Error handling complete message: {}", e);
+                    eprintln!("Error handling complete message: {e}");
                     continue;
                 }
                 messages.remove(&chunk.msg_id);

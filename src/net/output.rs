@@ -14,7 +14,7 @@ pub async fn send(
 ) -> io::Result<()> {
     let max_payload = CHUNK_SIZE - HEADER_SIZE;
     let data = message.serialize();
-    let total = ((data.len() + max_payload - 1) / max_payload) as u16;
+    let total = data.len().div_ceil(max_payload) as u16;
 
     for (i, chunk) in data.chunks(max_payload).enumerate() {
         let chunk = Chunk::new(message.id, i as u16, total, chunk.to_vec());
