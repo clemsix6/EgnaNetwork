@@ -1,4 +1,4 @@
-use network::{Listener, Message, send};
+use egna_network::{Listener, Message, send};
 use anyhow::Result;
 use std::net::SocketAddr;
 use tokio::{

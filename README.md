@@ -18,7 +18,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-egna-network = "0.1.0"
+egna_network = "0.1.0"
 tokio = { version = "1.46", features = ["full"] }
 ```
 

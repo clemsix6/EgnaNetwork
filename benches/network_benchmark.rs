@@ -1,5 +1,5 @@
 use criterion::{criterion_group, criterion_main, Criterion, BenchmarkId, Throughput};
-use network::net::{message::Message, output::send, input::Listener};
+use egna_network::net::{message::Message, output::send, input::Listener};
 use std::sync::{Arc, Mutex};
 use tokio::net::UdpSocket;
 
